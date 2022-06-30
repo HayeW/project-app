@@ -1,0 +1,37 @@
+<div>
+<select [(ngModel)]="selectedSchemaID" (change)="change(selectedSchemaID)">
+  <option *ngFor="let schema of schemas" [value]="schema.id">
+    {{schema.naam}}
+  </option>
+</select>
+</div> 
+
+
+<div *ngIf="selectedSchema">
+  <p>{{selectedSchema.naam}}</p>
+  <ul>
+
+      <div *ngFor="let oefening of oefeningen; let j = index">
+        {{oefening.naam}}
+        <table>
+
+          <tr>
+            <th>Set</th>
+            <th>Doel</th>
+            <th>Gehaald</th>
+            <th>Gewicht</th>
+          </tr>
+
+          <tr *ngFor="let item of [].constructor(oefening.sets); let i = index">  
+            <td>{{i+1}}</td>
+            <td>{{oefening.herhalingen}}x</td>
+            <td><input type="number" value="{{oefening.herhalingen}}" min="0" [(ngModel)]="results[j].behaaldeHerhalingen[i]"></td>
+            <td><input type="number" value="0" min="0" [(ngModel)]="results[j].gewicht[i]"></td>
+          </tr>
+
+        </table>
+        <button (click)="saveAll()">Save</button>
+
+      </div>
+  </ul>
+</div>

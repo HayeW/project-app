@@ -1,0 +1,17 @@
+<div>
+    <select [(ngModel)]="selectedSchemaID" (change)="findByTrainingschema_Id(selectedSchemaID)">
+        <option *ngFor="let schema of schemas" [value]="schema.id">
+           {{schema.naam}}
+        </option>
+    </select>
+
+    <select [(ngModel)]="selectedOefeningID" (change)="change()">
+        <option *ngFor="let oefening of oefeningen" [value]="oefening.id">
+            {{oefening.naam}}
+        </option>
+    </select>
+</div>
+
+<div class="container">
+    <canvas id="line_chart"></canvas>
+</div>

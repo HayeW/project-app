@@ -1,0 +1,24 @@
+<div>
+    <label>Schema naam:</label>
+    <input type="text" [(ngModel)]="trainingschema.naam">
+
+    <table>
+        <tr>
+            <th>Oefening</th>
+            <th>Sets</th>
+            <th>Herhalingen</th>
+        </tr>
+        <tr *ngFor="let item of items">
+            <td><input type="text" [(ngModel)]="oefeningen[item].naam"></td>
+            <td><input type="number" min="1" max="99" [(ngModel)]="oefeningen[item].sets"></td>
+            <td><input type="number" min="1" max="99" [(ngModel)]="oefeningen[item].herhalingen"></td>
+        </tr>
+    </table>
+
+    <button (click)="add()">Add</button>
+    <button (click)="delete()">Delete</button>
+    <button (click)="save()">Save</button>
+    <button (click)="findAll()">Find</button>
+
+</div>
+
