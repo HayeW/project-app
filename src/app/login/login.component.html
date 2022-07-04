@@ -1,7 +1,9 @@
-<button data-toggle="modal" data-target="#exampleModal">Login</button>
+<button data-toggle="modal" data-target="#exampleModal" (click)="clearLoginText()">Login</button>
+<label *ngIf="currentUser != null">Gebruiker: {{currentUser}}</label>
   
+
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,13 +14,14 @@
         </div>
         <div class="modal-body">
             <ul>
-                <input type="text" class="form-control" placeholder="Gebruikersnaam">
-                <input type="password" class="form-control" placeholder="Wachtwoord">
+                <input type="text" class="form-control" placeholder="Gebruikersnaam" [(ngModel)]="user.username">
+                <input type="password" class="form-control" placeholder="Wachtwoord" [(ngModel)]="user.password">
             </ul>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleren</button>
-        <button type="button" class="btn btn-primary">Login</button>
+            <label>{{loginText}}</label>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleren</button>
+            <button type="button" class="btn btn-primary" (click)="login()" data-toggle="modal">Login</button>
         </div>
     </div>
     </div>

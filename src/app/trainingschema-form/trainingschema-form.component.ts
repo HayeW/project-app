@@ -32,10 +32,6 @@ export class TrainingschemaFormComponent implements OnInit {
     })
   }
 
-  findAll() {
-    this.trainingschemaService.findAll().subscribe()
-  }
-
   add() {
     var temp: Oefening = new Oefening();
     var len: number = this.oefeningen.push(temp) - 1
