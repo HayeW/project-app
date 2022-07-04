@@ -8,6 +8,8 @@ import { TrainingschemaFormComponent } from './trainingschema-form/trainingschem
 import { WorkoutFormComponent } from './workout-form/workout-form.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HistoryComponent } from './history/history.component';
+import { LoginComponent } from './login/login.component';
+
 
 
 imports: [
@@ -19,7 +21,8 @@ imports: [
     AppComponent,
     TrainingschemaFormComponent,
     WorkoutFormComponent,
-    HistoryComponent
+    HistoryComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

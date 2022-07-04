@@ -1,8 +1,13 @@
-<nav>
-    <a routerLink="/workout">Workout</a>
-    <a routerLink="/trainingschema">Schema aanmaken</a>
-    <a routerLink="/history">Geschiedenis</a>
-    <a routerLink="/linechart">Grafiek</a>
-</nav>
-<hr>
-<router-outlet></router-outlet>
+<div class="container">
+    <nav>
+        <a routerLink="/workout">Workout</a>
+        <a routerLink="/trainingschema">Schema aanmaken</a>
+        <a routerLink="/history">Geschiedenis</a>
+        <app-login></app-login>
+
+    </nav>
+    <hr>
+    <router-outlet></router-outlet>
+    <!-- <hr> -->
+    <!-- <app-login></app-login> -->
+</div>

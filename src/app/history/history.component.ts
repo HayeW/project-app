@@ -24,9 +24,6 @@ export class HistoryComponent implements OnInit {
 
   results: Result[] = []
 
-  // xdata: any[] = []
-  // ydata: number[] = []
-
   lineChar!: any
 
 
@@ -39,7 +36,7 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSchemas()
-    this.generateChart([], [])
+    this.generateChart([], [], [])
 
   }
 
@@ -57,7 +54,6 @@ export class HistoryComponent implements OnInit {
   }
 
   findByTrainingschema_Id(id: number): void{
-    console.log("henk")
     this.oefeningService.findByTrainingschema_Id(id)
     .subscribe({
       next: oefeningen => this.oefeningen = oefeningen,
@@ -72,41 +68,76 @@ export class HistoryComponent implements OnInit {
     })
   }
 
-  generateChart(xdata: any[], ydata: number[]): void{
-        // Line Chart
-        const lineCanvasEle: any = document.getElementById('line_chart')
-        this.lineChar = new Chart(lineCanvasEle.getContext('2d'), {
-          type: 'line',
-            data: {
-              labels: xdata,
-              datasets: [
-                { data: ydata, label: 'Orders', borderColor: 'rgba(54, 162, 235)' },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                  y: {
-                      beginAtZero: true
-                  }
-              }
+  generateChart(xdata: any[], ydatasets: number[][], labels: string[]): void{
+
+      var datasets = []
+
+      for (let i = 0; i < labels.length; i++){
+        datasets.push(
+          { data: ydatasets[i], label: labels[i], borderColor: 'rgba(54, 162, 235)' }
+        )
+      }
+
+      // Line Chart
+      const lineCanvasEle: any = document.getElementById('line_chart')
+      this.lineChar = new Chart(lineCanvasEle.getContext('2d'), {
+        type: 'line',
+          data: {
+            labels: xdata,
+            datasets: datasets
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    title: {
+                      display: true,
+                      text:'Gewicht (kg)'
+                    },
+                    beginAtZero: true
+                }
             }
-          });
+          }
+        });
       }
   
   change(): void{
-    var ydata: number[] = []
+    var oefeningen: string[] = []
+    var name: string
+
     for (let result of this.results){
-      ydata.push(Math.max(...result.gewicht))
+      name = result.oefening.naam
+      if (!(oefeningen.includes(name))){
+        oefeningen.push(name)
+      }
     }
 
+    var ydata: number[] = []
+    var ydatasets: number[][] = []
+    for (let oefening of oefeningen){
+      ydata = []
+
+      for (let result of this.results){
+        if (result.oefening.naam == oefening){
+          ydata.push(Math.max(...result.gewicht))
+        }
+      }
+      ydatasets.push(ydata)
+    }
+
+    var xdata_length = 0
+    for (let ydata of ydatasets){
+      if (ydata.length > xdata_length){
+        xdata_length = ydata.length
+      }
+    }
     var xdata = []
-    for(var i = 1; i <= ydata.length; i++){
+    for(var i = 1; i <= xdata_length; i++){
       xdata.push(i)
     }
 
     this.lineChar.destroy()
-    this.generateChart(xdata, ydata)
+    this.generateChart(xdata, ydatasets, oefeningen)
   }
 }
