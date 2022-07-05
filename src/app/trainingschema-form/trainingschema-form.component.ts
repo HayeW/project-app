@@ -24,12 +24,16 @@ export class TrainingschemaFormComponent implements OnInit {
     this.trainingschemaService.save(this.trainingschema).subscribe({
       
       next: trainingschema => {this.trainingschema = trainingschema},
+      error: (error) => { alert(error.error.messages.join('\n')) },
       complete: () => {
         for (let oefening of this.oefeningen) {oefening.trainingschema = this.trainingschema}
-        this.oefeningService.saveAll(this.oefeningen).subscribe()
+        this.oefeningService.saveAll(this.oefeningen).subscribe({
+          next: oefeningen => this.oefeningen = oefeningen,
+          error: (error) => { alert(error.error.messages.join('\n')) }
+        })
       }
-      
-    })
+    }
+)
   }
 
   add() {

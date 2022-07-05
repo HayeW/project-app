@@ -10,8 +10,8 @@ export class OefeningService {
 
   constructor(public http: HttpClient) { }
 
-  saveAll(oefeningen: Oefening[]){
-    return this.http.post(
+  saveAll(oefeningen: Oefening[]): Observable<Oefening[]>{
+    return this.http.post<Oefening[]>(
       'http://localhost:8080/oefening', oefeningen);
   }
 

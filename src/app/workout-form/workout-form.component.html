@@ -8,7 +8,6 @@
 
 
 <div *ngIf="selectedSchema">
-  <p>{{selectedSchema.naam}}</p>
   <ul>
 
       <div *ngFor="let oefening of oefeningen; let j = index">
@@ -30,8 +29,9 @@
           </tr>
 
         </table>
-        <button (click)="saveAll()">Save</button>
+        <hr>
 
       </div>
+      <button (click)="saveAll()">Opslaan</button>
   </ul>
 </div>

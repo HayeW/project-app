@@ -19,8 +19,10 @@ export class LoginComponent implements OnInit {
 
   login(){
     return this.loginService.login(this.user).subscribe({
-      next: (username) => {sessionStorage.setItem('name', username)},
-      error: (message) => {this.loginText = (message.error)},
+      next: (user) => {
+        console.log("bij de next")
+        sessionStorage.setItem('name', (user.username))},
+      error: (error) => { { alert(error.error.messages.join('\n')) } },
       complete: () => {
         this.currentUser = sessionStorage.getItem('name'),
         this.loginText = 'U bent ingelogd als: ' + this.currentUser
@@ -30,5 +32,7 @@ export class LoginComponent implements OnInit {
 
   clearLoginText(){
     this.loginText=''
+    this.user.username=''
+    this.user.password=''
   }
 }

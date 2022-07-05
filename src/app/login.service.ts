@@ -10,10 +10,9 @@ export class LoginService {
 
   constructor(public http: HttpClient) { }
 
-  login(user: User): Observable<string>{
-    return this.http.post(
-      'http://localhost:8080/login', user,
-      {responseType: 'text'}
+  login(user: User): Observable<User>{
+    return this.http.post<User>(
+      'http://localhost:8080/login', user
     )
   }
 

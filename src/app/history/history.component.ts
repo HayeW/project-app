@@ -64,17 +64,18 @@ export class HistoryComponent implements OnInit {
   findByOefening_Trainingschema_id(id: number): void{
     this.resultService.findByOefening_Trainingschema_id(id).subscribe({
       next: results => this.results = results,
-      complete: () => this.change()
+      complete: () => this.onChange()
     })
   }
 
   generateChart(xdata: any[], ydatasets: number[][], labels: string[]): void{
 
       var datasets = []
+      var colors = ['rgba(39, 71, 245)', 'rgba(245, 66, 66)', 'rgba(42, 163, 36)', 'rgba(219, 139, 0)']
 
       for (let i = 0; i < labels.length; i++){
         datasets.push(
-          { data: ydatasets[i], label: labels[i], borderColor: 'rgba(54, 162, 235)' }
+          { data: ydatasets[i], label: labels[i], borderColor: (i < colors.length ? colors[i] : colors[0]) }
         )
       }
 
@@ -82,19 +83,13 @@ export class HistoryComponent implements OnInit {
       const lineCanvasEle: any = document.getElementById('line_chart')
       this.lineChar = new Chart(lineCanvasEle.getContext('2d'), {
         type: 'line',
-          data: {
-            labels: xdata,
-            datasets: datasets
-          },
+          data: { labels: xdata, datasets: datasets },
           options: {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
                 y: {
-                    title: {
-                      display: true,
-                      text:'Gewicht (kg)'
-                    },
+                    title: {display: true, text:'Gewicht (kg)' },
                     beginAtZero: true
                 }
             }
@@ -102,7 +97,7 @@ export class HistoryComponent implements OnInit {
         });
       }
   
-  change(): void{
+  onChange(): void{
     var oefeningen: string[] = []
     var name: string
 

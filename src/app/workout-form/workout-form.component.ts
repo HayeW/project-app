@@ -43,10 +43,11 @@ change(id: number): void{
     if (schema.id == id) {
       this.selectedSchema = schema
       this.workout.trainingschema = schema
-      console.log(this.workout)
     }
   }
   this.findByTrainingschema_Id(id)
+  this.oefeningen = []
+  this.results = []
 }
 
 findByTrainingschema_Id(id: number): void{
@@ -66,6 +67,7 @@ findByTrainingschema_Id(id: number): void{
 saveAll() {
   this.workoutService.save(this.workout).subscribe({
     next: workout => this.workout = workout,
+    error: (error) => { alert(error.error.messages.join('\n')) },
     complete:
     () => 
     {
@@ -75,7 +77,7 @@ saveAll() {
 
       this.resultService.saveAll(this.results).subscribe({
         next: (results) => this.results = results,
-        complete: () => console.log("results saved")
+        error: (error) => { alert(error.error.messages.join('\n')) },
     })
     }
   })
